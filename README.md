@@ -18,7 +18,7 @@ In order for the api to work you will need to edit the .env with your database c
 
 ```
 DB_HOST=localhost
-DB_DATABASE=geoportal
+DB_DATABASE=data
 DB_USERNAME=postgres
 DB_PASSWORD=postgres
 DB_PORT=5432
@@ -40,8 +40,6 @@ Build Dockerfile into a docker image to deploy to the cloud.
 | `POST`  | `/api/v1/services/enrich_map/`                                                  | [Enrich Map](#enrich-map)               |
 | `GET`  | `/api/v1/health_check`                                                           | Server health check: returns `200 OK`            |
 
-
-```
 
 ## Enrich Map
 
