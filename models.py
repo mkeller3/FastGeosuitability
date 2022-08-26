@@ -15,3 +15,14 @@ class EnrichMap(BaseModel):
     table_values: list=[]
     variables: Optional[List[Variable]]=[]
     return_geometry: bool=False
+    cql_filter: str
+
+class Point(BaseModel):
+    latitude: float
+    longitude: float
+
+class EnrichPoints(BaseModel):
+    points: List[Point]
+    buffer_in_kilometers: float
+    variables: Optional[List[Variable]]=[]
+    return_geometry: bool=False

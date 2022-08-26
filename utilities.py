@@ -9,13 +9,15 @@ def get_final_scores(geojson_collection: object, variables: list) -> object:
         column = f"{variable.table}_{variable.type}_{variable.column}"
         for feature in geojson_collection['features']:
             if column not in maximum_values:
-                maximum_values[column] = float(feature['properties'][column])
+                if column in feature['properties']:
+                    maximum_values[column] = float(feature['properties'][column])
             else:
                 if column in feature['properties']:
                     if float(feature['properties'][column]) > maximum_values[column]:
                         maximum_values[column] = float(feature['properties'][column])
             if column not in minimum_values:
-                minimum_values[column] = float(feature['properties'][column])
+                if column in feature['properties']:
+                    minimum_values[column] = float(feature['properties'][column])
             else:
                 if column in feature['properties']:
                     if float(feature['properties'][column]) < minimum_values[column]:
@@ -26,19 +28,25 @@ def get_final_scores(geojson_collection: object, variables: list) -> object:
         for feature in geojson_collection['features']:
             if column in feature['properties']:
                 if variable.influence == 'low':
-                    score = (
-                        ( maximum_values[column] - float(feature['properties'][column]) ) /
-                        ( maximum_values[column] - minimum_values[column] )
-                    )
-                    weighted_score = score * variable.weight
+                    if float(feature['properties'][column]) == maximum_values[column]:
+                        weighted_score = 0
+                    else:
+                        score = (
+                            ( maximum_values[column] - float(feature['properties'][column]) ) /
+                            ( maximum_values[column] - minimum_values[column] )
+                        )
+                        weighted_score = score * variable.weight
                     feature['properties'][f"weighted_score_{column}"] = weighted_score
                 
                 if variable.influence == 'high':
-                    score = (
-                        ( float(feature['properties'][column]) - minimum_values[column] ) /
-                        ( maximum_values[column] - minimum_values[column] )
-                    )
-                    weighted_score = score * variable.weight
+                    if float(feature['properties'][column]) == minimum_values[column]:
+                        weighted_score = 0
+                    else:
+                        score = (
+                            ( float(feature['properties'][column]) - minimum_values[column] ) /
+                            ( maximum_values[column] - minimum_values[column] )
+                        )
+                        weighted_score = score * variable.weight
                     feature['properties'][f"weighted_score_{column}"] = weighted_score
                 
                 if variable.influence == 'ideal':

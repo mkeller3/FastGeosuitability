@@ -38,6 +38,7 @@ Build Dockerfile into a docker image to deploy to the cloud.
 | Method | URL                                                                              | Description                                             |
 | ------ | -------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | `POST`  | `/api/v1/services/enrich_map/`                                                  | [Enrich Map](#enrich-map)               |
+| `POST`  | `/api/v1/services/enrich_points/`                                               | [Enrich Points](#enrich-points)               |
 | `GET`  | `/api/v1/health_check`                                                           | Server health check: returns `200 OK`            |
 
 
@@ -142,3 +143,75 @@ Example Response
 }
 ```
 
+## Enrich Points
+
+Description
+
+Example Input
+```json
+{
+    "points": [
+        {
+            "latitude": 40.45,
+            "longitude": -88.95
+        },
+        {
+            "latitude": 41.63212,
+            "longitude": -87.85594
+        }
+    ],
+    "buffer_in_kilometers": 50,
+    "return_geometry": false,
+    "variables":[
+        {
+            "table": "walmart_locations",
+            "column": "gid",
+            "type": "count",
+            "influence": "high",
+            "weight": 50
+        },
+        {
+            "table": "chick_fil_a_locations",
+            "column": "gid",
+            "type": "count",
+            "influence": "high",
+            "weight": 50
+        }
+    ]
+}
+```
+
+Example Response
+```json
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "longitude": -87.85594,
+                "latitude": 41.63212,
+                "walmart_locations_count_gid": 42,
+                "chick_fil_a_locations_count_gid": 12,
+                "weighted_score_walmart_locations_count_gid": 50.0,
+                "weighted_score_chick_fil_a_locations_count_gid": 50.0,
+                "final_score": 100.0
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "longitude": -88.95,
+                "latitude": 40.45,
+                "walmart_locations_count_gid": 3,
+                "chick_fil_a_locations_count_gid": 2,
+                "weighted_score_walmart_locations_count_gid": 0,
+                "weighted_score_chick_fil_a_locations_count_gid": 0,
+                "final_score": 0
+            }
+        }
+    ]
+}
+```
