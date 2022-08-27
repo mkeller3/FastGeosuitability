@@ -60,7 +60,7 @@ already loaded into your database.
 * `return_geometry=bool` - boolean to determine if geometry is returned.
 * `filter=cql-expr` - filters features via a CQL expression.
 
-Example
+### Example
 In the example below, I am trying to rank all the counties in Illinois based off of 3 variables.
 In this situation, I am trying to find the best county to live in if I wanted to be by a large
 amount of Walmart's, Chick Fil A's, and Starbucks. My `table` parameter is counties with my `table_column`
@@ -97,7 +97,7 @@ for Walmart's, Chick Fil A's, and Starbucks.
 For each variable, you will need to define an object containing a certain list of keys and values.
 For more information about defining variables, go to the [variables](#variables) section which goes into full detail.
 
-### Results
+### Map Suitability Results
 Your results will be returned as a geojson collection. For each polygon, you will see a new set of properties returned.
 For more information about results, go to the [results](#results) section which goes into full detail.
 
