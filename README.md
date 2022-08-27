@@ -52,7 +52,7 @@ Build Dockerfile into a docker image to deploy to the cloud.
 The map suitability endpoints allows you to perform a suitability analyis on a set of geometries
 already loaded into your database.
 
-### Parameters
+### Map Suitability Parameters
 * `table=table` - name of the table.
 * `table_column=table-col` - name of a unique column in your table.
 * `table_values=[values]` - list of unique values from your table column.
@@ -60,7 +60,7 @@ already loaded into your database.
 * `return_geometry=bool` - boolean to determine if geometry is returned.
 * `filter=cql-expr` - filters features via a CQL expression.
 
-### Example
+### Map Suitability Example
 In the example below, I am trying to rank all the counties in Illinois based off of 3 variables.
 In this situation, I am trying to find the best county to live in if I wanted to be by a large
 amount of Walmart's, Chick Fil A's, and Starbucks. My `table` parameter is counties with my `table_column`
