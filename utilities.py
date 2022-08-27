@@ -30,6 +30,7 @@ def get_final_scores(geojson_collection: object, variables: list) -> object:
                 if variable.influence == 'low':
                     if float(feature['properties'][column]) == maximum_values[column]:
                         weighted_score = 0
+                        score = 0
                     else:
                         score = (
                             ( maximum_values[column] - float(feature['properties'][column]) ) /
@@ -37,9 +38,11 @@ def get_final_scores(geojson_collection: object, variables: list) -> object:
                         )
                         weighted_score = score * variable.weight
                     feature['properties'][f"weighted_score_{column}"] = weighted_score
+                    feature['properties'][f"score_{column}"] = score
                 
                 if variable.influence == 'high':
                     if float(feature['properties'][column]) == minimum_values[column]:
+                        score = 0
                         weighted_score = 0
                     else:
                         score = (
@@ -48,6 +51,7 @@ def get_final_scores(geojson_collection: object, variables: list) -> object:
                         )
                         weighted_score = score * variable.weight
                     feature['properties'][f"weighted_score_{column}"] = weighted_score
+                    feature['properties'][f"score_{column}"] = score
                 
                 if variable.influence == 'ideal':
                     bottom_score = variable.ideal_value - minimum_values[column]
@@ -62,8 +66,10 @@ def get_final_scores(geojson_collection: object, variables: list) -> object:
                     )
                     weighted_score = score * variable.weight
                     feature['properties'][f"weighted_score_{column}"] = weighted_score
+                    feature['properties'][f"score_{column}"] = score
             else:
                 feature['properties'][f"weighted_score_{column}"] = 0
+                feature['properties'][f"score_{column}"] = score
     
     for feature in geojson_collection['features']:
         final_score = 0

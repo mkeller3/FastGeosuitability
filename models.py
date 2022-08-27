@@ -16,7 +16,7 @@ class MapSuitability(BaseModel):
     table_values: list=[]
     variables: Optional[List[Variable]]=[]
     return_geometry: bool=False
-    filter: str
+    filter: str=""
 
 class Point(BaseModel):
     latitude: float

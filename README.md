@@ -1,6 +1,6 @@
 # FastGeosuitability
 
-FastGeosuitability is a geosuitability api to help determine what areas are most suitable based off of a given set of variables. FastGeosuitability is written in [Python](https://www.python.org/) using the [FastAPI](https://fastapi.tiangolo.com/) web framework. 
+FastGeosuitability is a geosuitability api to help determine what areas are most suitable based off of a given set of variables. The api will rank each location with a set of weighted and final score to help you determine the best location. FastGeosuitability is written in [Python](https://www.python.org/) using the [FastAPI](https://fastapi.tiangolo.com/) web framework. 
 
 ---
 
@@ -43,6 +43,10 @@ Build Dockerfile into a docker image to deploy to the cloud.
 | `GET`  | `/api/v1/health_check`                                                           | Server health check: returns `200 OK`    |
 
 
+## Variables
+
+## Results
+
 ## Map Suitability
 
 The map suitability endpoints allows you to perform a suitability analyis on a set of geometries
@@ -55,6 +59,50 @@ already loaded into your database.
 * `variables=[{variables}]` - list of variables to perform site suitability against.
 * `return_geometry=bool` - boolean to determine if geometry is returned.
 * `filter=cql-expr` - filters features via a CQL expression.
+
+Example
+In the example below, I am trying to rank all the counties in Illinois based off of 3 variables.
+In this situation, I am trying to find the best county to live in if I wanted to be by a large
+amount of Walmart's, Chick Fil A's, and Starbucks. My `table` parameter is counties with my `table_column`
+set to `fips`, since each county has a unique fips code. I then listed all of the fips code in the `table_values`
+parameter, but could also add a `filter` parameter of `state_name = 'Illinois'`. Next, I added in my list of variables
+for Walmart's, Chick Fil A's, and Starbucks.
+
+```json
+"variables":[
+      {
+          "table": "walmart_locations",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 25
+      },
+      {
+          "table": "chick_fil_a_locations",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 25
+      },
+      {
+          "table": "starbucks",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 50
+      }
+  ]
+```
+
+For each variable, you will need to define an object containing a certain list of keys and values.
+For more information about defining variables, go to the [variables](#variables) section which goes into full detail.
+
+### Results
+Your results will be returned as a geojson collection. For each polygon, you will see a new set of properties returned.
+For more information about results, go to the [results](#results) section which goes into full detail.
+
+For this example, Cook County would be the best location county for me to live in, if I wanted to be near
+a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 100.
 
 Example Input
 ```json
@@ -76,14 +124,8 @@ Example Input
         "17031",
         ...
     ],
+    "return_geometry": true,
     "variables":[
-        {
-            "table": "counties",
-            "column": "population",
-            "type": "sum",
-            "influence": "high",
-            "weight": 50
-        },
         {
             "table": "walmart_locations",
             "column": "gid",
@@ -97,6 +139,13 @@ Example Input
             "type": "count",
             "influence": "high",
             "weight": 25
+        },
+        {
+            "table": "starbucks",
+            "column": "gid",
+            "type": "count",
+            "influence": "high",
+            "weight": 50
         }
     ]
 }
@@ -112,12 +161,15 @@ Example Response
             "geometry": null,
             "properties": {
                 "fips": "17031",
-                "counties_sum_population": 5313828,
                 "walmart_locations_count_gid": 42,
                 "chick_fil_a_locations_count_gid": 8,
-                "weighted_score_counties_sum_population": 50.0,
+                "starbucks_count_gid": 312,
                 "weighted_score_walmart_locations_count_gid": 25.0,
+                "score_walmart_locations_count_gid": 1.0,
                 "weighted_score_chick_fil_a_locations_count_gid": 25.0,
+                "score_chick_fil_a_locations_count_gid": 1.0,
+                "weighted_score_starbucks_count_gid": 50.0,
+                "score_starbucks_count_gid": 1.0,
                 "final_score": 100.0
             }
         },
@@ -126,13 +178,16 @@ Example Response
             "geometry": null,
             "properties": {
                 "fips": "17043",
-                "counties_sum_population": 940072,
                 "walmart_locations_count_gid": 8,
                 "chick_fil_a_locations_count_gid": 7,
-                "weighted_score_counties_sum_population": 8.813460142972538,
+                "starbucks_count_gid": 69,
                 "weighted_score_walmart_locations_count_gid": 4.2682926829268295,
+                "score_walmart_locations_count_gid": 0.17073170731707318,
                 "weighted_score_chick_fil_a_locations_count_gid": 21.428571428571427,
-                "final_score": 34.510324254470795
+                "score_chick_fil_a_locations_count_gid": 0.8571428571428571,
+                "weighted_score_starbucks_count_gid": 10.932475884244374,
+                "score_starbucks_count_gid": 0.21864951768488747,
+                "final_score": 36.62933999574263
             }
         },
         {
@@ -140,13 +195,16 @@ Example Response
             "geometry": null,
             "properties": {
                 "fips": "17097",
-                "counties_sum_population": 709599,
                 "walmart_locations_count_gid": 9,
                 "chick_fil_a_locations_count_gid": 2,
-                "weighted_score_counties_sum_population": 6.643154940654739,
+                "starbucks_count_gid": 41,
                 "weighted_score_walmart_locations_count_gid": 4.878048780487805,
+                "score_walmart_locations_count_gid": 0.1951219512195122,
                 "weighted_score_chick_fil_a_locations_count_gid": 3.571428571428571,
-                "final_score": 15.092632292571116
+                "score_chick_fil_a_locations_count_gid": 0.14285714285714285,
+                "weighted_score_starbucks_count_gid": 6.430868167202572,
+                "score_starbucks_count_gid": 0.12861736334405144,
+                "final_score": 14.880345519118947
             }
         }...
     ]
@@ -210,7 +268,9 @@ Example Response
                 "walmart_locations_count_gid": 42,
                 "chick_fil_a_locations_count_gid": 12,
                 "weighted_score_walmart_locations_count_gid": 50.0,
+                "score_walmart_locations_count_gid": 1.0,
                 "weighted_score_chick_fil_a_locations_count_gid": 50.0,
+                "score_chick_fil_a_locations_count_gid": 1.0,
                 "final_score": 100.0
             }
         },
@@ -223,7 +283,9 @@ Example Response
                 "walmart_locations_count_gid": 3,
                 "chick_fil_a_locations_count_gid": 2,
                 "weighted_score_walmart_locations_count_gid": 0,
+                "score_walmart_locations_count_gid": 0,
                 "weighted_score_chick_fil_a_locations_count_gid": 0,
+                "score_chick_fil_a_locations_count_gid": 0,
                 "final_score": 0
             }
         }
@@ -356,9 +418,14 @@ Example Response
                 "index": 0,
                 "walmart_locations_count_gid": 2,
                 "chick_fil_a_locations_count_gid": 3,
-                "weighted_score_walmart_locations_count_gid": 25.0,
-                "weighted_score_chick_fil_a_locations_count_gid": 50.0,
-                "final_score": 75.0
+                "starbucks_count_gid": 21,
+                "weighted_score_walmart_locations_count_gid": 12.5,
+                "score_walmart_locations_count_gid": 0.5,
+                "weighted_score_chick_fil_a_locations_count_gid": 25.0,
+                "score_chick_fil_a_locations_count_gid": 1.0,
+                "weighted_score_starbucks_count_gid": 50.0,
+                "score_starbucks_count_gid": 1.0,
+                "final_score": 87.5
             }
         },
         {
@@ -368,9 +435,14 @@ Example Response
                 "index": 2,
                 "walmart_locations_count_gid": 3,
                 "chick_fil_a_locations_count_gid": 1,
-                "weighted_score_walmart_locations_count_gid": 50.0,
-                "weighted_score_chick_fil_a_locations_count_gid": 16.666666666666664,
-                "final_score": 66.66666666666666
+                "starbucks_count_gid": 18,
+                "weighted_score_walmart_locations_count_gid": 25.0,
+                "score_walmart_locations_count_gid": 1.0,
+                "weighted_score_chick_fil_a_locations_count_gid": 8.333333333333332,
+                "score_chick_fil_a_locations_count_gid": 0.3333333333333333,
+                "weighted_score_starbucks_count_gid": 42.10526315789473,
+                "score_starbucks_count_gid": 0.8421052631578947,
+                "final_score": 75.43859649122805
             }
         },
         {
@@ -380,9 +452,14 @@ Example Response
                 "index": 4,
                 "walmart_locations_count_gid": 2,
                 "chick_fil_a_locations_count_gid": 0,
-                "weighted_score_walmart_locations_count_gid": 25.0,
+                "starbucks_count_gid": 2,
+                "weighted_score_walmart_locations_count_gid": 12.5,
+                "score_walmart_locations_count_gid": 0.5,
                 "weighted_score_chick_fil_a_locations_count_gid": 0,
-                "final_score": 25.0
+                "score_chick_fil_a_locations_count_gid": 0,
+                "weighted_score_starbucks_count_gid": 0,
+                "score_starbucks_count_gid": 0,
+                "final_score": 12.5
             }
         },
         {
@@ -392,9 +469,14 @@ Example Response
                 "index": 1,
                 "walmart_locations_count_gid": 1,
                 "chick_fil_a_locations_count_gid": 0,
+                "starbucks_count_gid": 4,
                 "weighted_score_walmart_locations_count_gid": 0,
+                "score_walmart_locations_count_gid": 0,
                 "weighted_score_chick_fil_a_locations_count_gid": 0,
-                "final_score": 0
+                "score_chick_fil_a_locations_count_gid": 0,
+                "weighted_score_starbucks_count_gid": 5.263157894736842,
+                "score_starbucks_count_gid": 0.10526315789473684,
+                "final_score": 5.263157894736842
             }
         },
         {
@@ -404,8 +486,13 @@ Example Response
                 "index": 3,
                 "walmart_locations_count_gid": 1,
                 "chick_fil_a_locations_count_gid": 0,
+                "starbucks_count_gid": 2,
                 "weighted_score_walmart_locations_count_gid": 0,
+                "score_walmart_locations_count_gid": 0,
                 "weighted_score_chick_fil_a_locations_count_gid": 0,
+                "score_chick_fil_a_locations_count_gid": 0,
+                "weighted_score_starbucks_count_gid": 0,
+                "score_starbucks_count_gid": 0,
                 "final_score": 0
             }
         }
