@@ -45,7 +45,16 @@ Build Dockerfile into a docker image to deploy to the cloud.
 
 ## Map Suitability
 
-Description
+The map suitability endpoints allows you to perform a suitability analyis on a set of geometries
+already loaded into your database.
+
+### Parameters
+* `table=table` - name of the table.
+* `table_column=table-col` - name of a unique column in your table.
+* `table_values=[values]` - list of unique values from your table column.
+* `variables=[{variables}]` - list of variables to perform site suitability against.
+* `return_geometry=bool` - boolean to determine if geometry is returned.
+* `filter=cql-expr` - filters features via a CQL expression.
 
 Example Input
 ```json
@@ -146,7 +155,12 @@ Example Response
 
 ## Point Suitability
 
-Description
+### Parameters
+* `points=[points]` - list of points to perform suitability analysis against.
+* `buffer_in_kilometers=distance-in-kilometers` - distance in kilometers to search for data around each point.
+* `variables=[{variables}]` - list of variables to perform site suitability against.
+* `return_geometry=bool` - boolean to determine if geometry is returned.
+
 
 Example Input
 ```json
@@ -219,7 +233,10 @@ Example Response
 
 ## Polygon Suitability
 
-Description
+### Parameters
+* `geojson_collection=geojson_collection` - a geojson collection of polygons.
+* `variables=[{variables}]` - list of variables to perform site suitability against.
+* `return_geometry=bool` - boolean to determine if geometry is returned.
 
 Example Input
 ```json

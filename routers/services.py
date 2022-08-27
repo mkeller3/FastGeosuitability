@@ -39,7 +39,7 @@ async def map_suitability(info: models.MapSuitability, request: Request):
             values = "','".join(info.table_values)
             query += f""" WHERE {info.table_column} in ('{values}')"""
         
-        if info.table_values == [] and info.cql_filter != "":
+        if info.table_values == [] and info.filter != "":
             sql_field_query = f"""
                 SELECT column_name
                 FROM information_schema.columns
@@ -54,7 +54,7 @@ async def map_suitability(info: models.MapSuitability, request: Request):
             for field in db_fields:
                 field_mapping[field['column_name']] = field['column_name']
 
-            ast = parse(info.cql_filter)
+            ast = parse(info.filter)
             where_statement = to_sql_where(ast, field_mapping)
 
             query += f" WHERE {where_statement}"
@@ -109,7 +109,7 @@ async def map_suitability(info: models.MapSuitability, request: Request):
                     values = "','".join(info.table_values)
                     query += f""" AND b."{info.table_column}" in ('{values}')"""
                 
-                if info.table_values == [] and info.cql_filter != "":
+                if info.table_values == [] and info.filter != "":
                     sql_field_query = f"""
                         SELECT column_name
                         FROM information_schema.columns
@@ -124,7 +124,7 @@ async def map_suitability(info: models.MapSuitability, request: Request):
                     for field in db_fields:
                         field_mapping[field['column_name']] = field['column_name']
 
-                    ast = parse(info.cql_filter)
+                    ast = parse(info.filter)
                     where_statement = to_sql_where(ast, field_mapping)
 
                     query += f" AND {where_statement}"
