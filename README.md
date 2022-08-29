@@ -81,6 +81,48 @@ Determine the number of features within a table that intersect the sutiability a
 
 ### Influence Descriptions
 
+#### Influence High
+
+High Influence means that the higher the value of the type/column is, the higher the suitability score will be for that location.
+
+##### Influence High Calculation
+
+```
+( 
+    (Variable for location - Minimum variable for all locations) / 
+    (Maximum variable for all locations - Minimum variable for all locations) 
+) * weight
+```
+
+#### Low
+
+Low Influence means that the lower the value of the type/column is, the higher the suitability score will be for that location.
+
+##### Influence Low Calculation
+
+```
+( 
+    (Maximum variable for all locations - Variable for location) / 
+    (Maximum variable for all locations - Minimum variable for all locations) 
+) * weight
+```
+
+#### Ideal
+
+Ideal Influence means that the closer the value of the type/column is to the ideal value, the higher the suitability score will be for that location.
+
+##### Influence Ideal Calculation
+
+```
+(
+    1 -
+    ( 
+        (Absolute (Ideal Value - Variable for location) ) / 
+        (Ideal Value  - Minimum variable for all locations OR Maximum variable for all locations - Variable for location) 
+        {Whichever is of a higher value}
+    )
+) * weight
+```
 
 
 ## Results
