@@ -94,6 +94,22 @@ High Influence means that the higher the value of the type/column is, the higher
 ) * weight
 ```
 
+##### Influence High Calculation Example Python
+
+```python
+weight = 20
+location_variable = 3
+minimum_variable = 1
+maximum_variable = 5
+score = ( 
+    (location_variable - minimum_variable) /
+    (maximum_variable - minimum_variable)
+) * weight
+
+print(score)
+# score = 40
+```
+
 #### Low
 
 Low Influence means that the lower the value of the type/column is, the higher the suitability score will be for that location.
@@ -105,6 +121,22 @@ Low Influence means that the lower the value of the type/column is, the higher t
     (Maximum variable for all locations - Variable for location) / 
     (Maximum variable for all locations - Minimum variable for all locations) 
 ) * weight
+```
+
+##### Influence Low Calculation Example Python
+
+```python
+weight = 20
+location_variable = 3
+minimum_variable = 1
+maximum_variable = 5
+score = ( 
+    (maximum_variable - location_variable) /
+    (maximum_variable - minimum_variable)
+) * weight
+
+print(score)
+# score = 20
 ```
 
 #### Ideal
@@ -124,6 +156,25 @@ Ideal Influence means that the closer the value of the type/column is to the ide
 ) * weight
 ```
 
+##### Influence Ideal Calculation Example Python
+
+```python
+weight = 20
+location_variable = 3
+minimum_variable = 1
+maximum_variable = 5
+ideal_value = 4
+score = (
+    1 -
+    ( 
+        abs(ideal_value - location_variable) /
+        (ideal_value - minimum_variable)
+    )
+) * weight
+
+print(score)
+# score = 13.33
+```
 
 ## Results
 
