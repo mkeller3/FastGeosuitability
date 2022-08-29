@@ -52,14 +52,30 @@ of details to help the api determine the suitability of the location.
 
 ### Variable Parameters
 * `table=table` - name of the table.
-* `column=table-col` - name of a column in your table.
-* `type=type` - How to determine score of variable.  For more information
+* `column=table-col` - name of a column in your table to perform suitability analysis with.
+* `type=type` - How to determine suitability score of variable. For more information
 about types go to the [type descriptions](#type-descriptions) area.
 * `influence=influence` - The type of influence to apply to the variable. Options `low, high, ideal`. For more information
 about influence type go to the [influence descriptions](#influence-descriptions) area.
 * `weight=weight` - how much weight to applt to the variable. All variables must total up to 100.
 
 ### Type Descriptions
+
+#### Sum
+Determine the sum all the values of the choosen column and table that intersect the sutiability area.
+For polygons that do no intersect the entire sutiability area, the api performs a percentage based sum.
+For example if the sum of the column for a polygon is 100, but only 80% of the polygon is
+within the suitability area. The api will account for the 20% loss of area and set the sum to 80.
+
+#### Avg
+Determine the average of all the values of the choosen column and table that intersect the sutiability area.
+For polygons that do no intersect the entire sutiability area, the api performs a percentage based average.
+For example if the average of the column for a polygon is 100, but only 80% of the polygon is
+within the suitability area. The api will account for the 20% loss of area and set the average to 80.
+
+
+#### Count
+Determine the number of features within a table that intersect the sutiability area.
 
 ### Influence Descriptions
 
