@@ -66,12 +66,14 @@ Determine the sum all the values of the choosen column and table that intersect 
 For polygons that do no intersect the entire sutiability area, the api performs a percentage based sum.
 For example if the sum of the column for a polygon is 100, but only 80% of the polygon is
 within the suitability area. The api will account for the 20% loss of area and set the sum to 80.
+![clip](images/clip.png)
 
 #### Avg
 Determine the average of all the values of the choosen column and table that intersect the sutiability area.
 For polygons that do no intersect the entire sutiability area, the api performs a percentage based average.
 For example if the average of the column for a polygon is 100, but only 80% of the polygon is
 within the suitability area. The api will account for the 20% loss of area and set the average to 80.
+![clip](images/clip.png)
 
 
 #### Count
