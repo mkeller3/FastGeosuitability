@@ -2,6 +2,8 @@
 
 FastGeosuitability is a geosuitability api to help determine what areas are most suitable based off of a given set of variables. The api will rank each location with a set of weighted and final score to help you determine the best location. FastGeosuitability is written in [Python](https://www.python.org/) using the [FastAPI](https://fastapi.tiangolo.com/) web framework. 
 
+Built with inspiration from [ArcGIS Business Analyst](https://doc.arcgis.com/en/business-analyst/web/suitability-analysis.htm).
+
 ---
 
 **Source Code**: <a href="https://github.com/mkeller3/FastGeosuitability" target="_blank">https://github.com/mkeller3/FastGeosuitability</a>
@@ -210,6 +212,9 @@ Example Response
     ]
 }
 ```
+
+## Map Suitability Map
+![map_suitability](images/map_suitability.png)
 
 ## Point Suitability
 
