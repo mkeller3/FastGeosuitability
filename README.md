@@ -228,7 +228,37 @@ The point suitability endpoints allows you to perform a suitability analyis on a
 
 ### Point Suitability Example
 
-In the example below, I am trying to rank a series of larger cities within the Midwest based off of 3 variables like the example before. In this situation, I am trying to find the best city to live in if I wanted to be by a large amount of Walmart's, Chick Fil A's, and Starbucks.
+In the example below, I am trying to rank a series of larger cities within the Midwest based off of 3 variables like the example before. In this situation, I am trying to find the best city to live in if I wanted to be by a large amount of Walmart's, Chick Fil A's, and Starbucks. Next, I added in my list of variables
+for Walmart's, Chick Fil A's, and Starbucks.
+
+```json
+"variables":[
+      {
+          "table": "walmart_locations",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 25
+      },
+      {
+          "table": "chick_fil_a_locations",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 25
+      },
+      {
+          "table": "starbucks",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 50
+      }
+  ]
+```
+
+For each variable, you will need to define an object containing a certain list of keys and values.
+For more information about defining variables, go to the [variables](#variables) section which goes into full detail.
 
 ### Point Suitability Results
 
@@ -325,7 +355,37 @@ The polygon suitability endpoints allows you to perform a suitability analyis on
 
 ### Polygon Suitability Example
 
-In the example below, I am trying to rank a series of larger urban areas around Chicago based off of 3 variables like the example before. In this situation, I am trying to find the best suburb to live in if I wanted to be by a large amount of Walmart's, Chick Fil A's, and Starbucks.
+In the example below, I am trying to rank a series of larger urban areas around Chicago based off of 3 variables like the example before. In this situation, I am trying to find the best suburb to live in if I wanted to be by a large amount of Walmart's, Chick Fil A's, and Starbucks. Next, I added in my list of variables
+for Walmart's, Chick Fil A's, and Starbucks.
+
+```json
+"variables":[
+      {
+          "table": "walmart_locations",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 25
+      },
+      {
+          "table": "chick_fil_a_locations",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 25
+      },
+      {
+          "table": "starbucks",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 50
+      }
+  ]
+```
+
+For each variable, you will need to define an object containing a certain list of keys and values.
+For more information about defining variables, go to the [variables](#variables) section which goes into full detail.
 
 ### Polygon Suitability Results
 
