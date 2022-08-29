@@ -47,6 +47,24 @@ Build Dockerfile into a docker image to deploy to the cloud.
 
 ## Variables
 
+In order to determine the sutiability of each location, you will need to pass in a list of variables. For each variable, we will need a couple
+of details to help the api determine the suitability of the location.
+
+### Variable Parameters
+* `table=table` - name of the table.
+* `column=table-col` - name of a column in your table.
+* `type=type` - How to determine score of variable.  For more information
+about types go to the [type descriptions](#type-descriptions) area.
+* `influence=influence` - The type of influence to apply to the variable. Options `low, high, ideal`. For more information
+about influence type go to the [influence descriptions](#influence-descriptions) area.
+* `weight=weight` - how much weight to applt to the variable. All variables must total up to 100.
+
+### Type Descriptions
+
+### Influence Descriptions
+
+
+
 ## Results
 
 ## Map Suitability
