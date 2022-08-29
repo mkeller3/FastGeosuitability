@@ -103,7 +103,7 @@ For more information about defining variables, go to the [variables](#variables)
 Your results will be returned as a geojson collection. For each polygon, you will see a new set of properties returned.
 For more information about results, go to the [results](#results) section which goes into full detail.
 
-For this example, Cook County would be the best location county for me to live in, if I wanted to be near
+For this example, Cook County would be the best county for me to live in, if I wanted to be near
 a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 100.
 
 Example Input
@@ -218,12 +218,25 @@ Example Response
 
 ## Point Suitability
 
-### Parameters
+The point suitability endpoints allows you to perform a suitability analyis on a set of known latitude and longitudes.
+
+### Point Suitability Parameters
 * `points=[points]` - list of points to perform suitability analysis against.
 * `buffer_in_kilometers=distance-in-kilometers` - distance in kilometers to search for data around each point.
 * `variables=[{variables}]` - list of variables to perform site suitability against.
 * `return_geometry=bool` - boolean to determine if geometry is returned.
 
+### Point Suitability Example
+
+In the example below, I am trying to rank a series of larger cities within the Midwest based off of 3 variables like the example before. In this situation, I am trying to find the best county to live in if I wanted to be by a large amount of Walmart's, Chick Fil A's, and Starbucks.
+
+### Point Suitability Results
+
+Your results will be returned as a geojson collection. For each polygon, you will see a new set of properties returned.
+For more information about results, go to the [results](#results) section which goes into full detail.
+
+For this example, Chicago would be the best city for me to live in, if I wanted to be near
+a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 92.
 
 Example Input
 ```json
@@ -297,6 +310,9 @@ Example Response
     ]
 }
 ```
+
+## Point Suitability Map
+![point_suitability](images/point_suitability.png))
 
 ## Polygon Suitability
 
