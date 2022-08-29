@@ -228,7 +228,7 @@ The point suitability endpoints allows you to perform a suitability analyis on a
 
 ### Point Suitability Example
 
-In the example below, I am trying to rank a series of larger cities within the Midwest based off of 3 variables like the example before. In this situation, I am trying to find the best county to live in if I wanted to be by a large amount of Walmart's, Chick Fil A's, and Starbucks.
+In the example below, I am trying to rank a series of larger cities within the Midwest based off of 3 variables like the example before. In this situation, I am trying to find the best city to live in if I wanted to be by a large amount of Walmart's, Chick Fil A's, and Starbucks.
 
 ### Point Suitability Results
 
@@ -312,14 +312,28 @@ a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 
 ```
 
 ## Point Suitability Map
-![point_suitability](images/point_suitability.png))
+![point_suitability](images/point_suitability.png)
 
 ## Polygon Suitability
 
-### Parameters
+The polygon suitability endpoints allows you to perform a suitability analyis on a set of known geojson polygons.
+
+### Polygon Suitability Parameters
 * `geojson_collection=geojson_collection` - a geojson collection of polygons.
 * `variables=[{variables}]` - list of variables to perform site suitability against.
 * `return_geometry=bool` - boolean to determine if geometry is returned.
+
+### Polygon Suitability Example
+
+In the example below, I am trying to rank a series of larger urban areas around Chicago based off of 3 variables like the example before. In this situation, I am trying to find the best suburb to live in if I wanted to be by a large amount of Walmart's, Chick Fil A's, and Starbucks.
+
+### Polygon Suitability Results
+
+Your results will be returned as a geojson collection. For each polygon, you will see a new set of properties returned.
+For more information about results, go to the [results](#results) section which goes into full detail.
+
+For this example, Lombard, IL would be the best city for me to live in, if I wanted to be near
+a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 87.5.
 
 ### Polygon Suitability Example Input
 ```json
@@ -520,3 +534,6 @@ a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 
     ]
 }
 ```
+
+## Polygon Suitability Map
+![polygon_suitability](images/polygon_suitability.png)
