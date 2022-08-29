@@ -106,7 +106,7 @@ For more information about results, go to the [results](#results) section which 
 For this example, Cook County would be the best county for me to live in, if I wanted to be near
 a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 100.
 
-Example Input
+### Map Suitability Example Input
 ```json
 {
     "table": "counties",
@@ -153,7 +153,7 @@ Example Input
 }
 ```
 
-Example Response
+### Map Suitability Example Response
 ```json
 {
     "type": "FeatureCollection",
@@ -238,7 +238,7 @@ For more information about results, go to the [results](#results) section which 
 For this example, Chicago would be the best city for me to live in, if I wanted to be near
 a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 92.
 
-Example Input
+### Point Suitability Example Input
 ```json
 {
     "points": [
@@ -272,7 +272,7 @@ Example Input
 }
 ```
 
-Example Response
+### Point Suitability Example Response
 ```json
 {
     "type": "FeatureCollection",
@@ -321,7 +321,7 @@ Example Response
 * `variables=[{variables}]` - list of variables to perform site suitability against.
 * `return_geometry=bool` - boolean to determine if geometry is returned.
 
-Example Input
+### Polygon Suitability Example Input
 ```json
 {
     "geojson_collection": {
@@ -427,7 +427,7 @@ Example Input
 }
 ```
 
-Example Response
+### Polygon Suitability Example Response
 ```json
 {
     "type": "FeatureCollection",
