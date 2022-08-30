@@ -45,142 +45,9 @@ Build Dockerfile into a docker image to deploy to the cloud.
 | `GET`  | `/api/v1/health_check`                                                           | Server health check: returns `200 OK`    |
 
 
-## Variables
-
-In order to determine the sutiability of each location, you will need to pass in a list of variables. For each variable, we will need a couple
-of details to help the api determine the suitability of the location.
-
-### Variable Parameters
-* `table=table` - name of the table.
-* `column=table-col` - name of a column in your table to perform suitability analysis with.
-* `type=type` - How to determine suitability score of variable. For more information
-about types go to the [type descriptions](#type-descriptions) area.
-* `influence=influence` - The type of influence to apply to the variable. Options `low, high, ideal`. For more information
-about influence type go to the [influence descriptions](#influence-descriptions) area.
-* `weight=weight` - how much weight to applt to the variable. All variables must total up to 100.
-
-### Type Descriptions
-
-#### Sum
-Determine the sum all the values of the choosen column and table that intersect the sutiability area.
-For polygons that do no intersect the entire sutiability area, the api performs a percentage based sum.
-For example if the sum of the column for a polygon is 100, but only 80% of the polygon is
-within the suitability area. The api will account for the 20% loss of area and set the sum to 80.
-![clip](images/clip.png)
-
-#### Avg
-Determine the average of all the values of the choosen column and table that intersect the sutiability area.
-For polygons that do no intersect the entire sutiability area, the api performs a percentage based average.
-For example if the average of the column for a polygon is 100, but only 80% of the polygon is
-within the suitability area. The api will account for the 20% loss of area and set the average to 80.
-![clip](images/clip.png)
-
-
-#### Count
-Determine the number of features within a table that intersect the sutiability area.
-
-### Influence Descriptions
-
-#### Influence High
-
-High Influence means that the higher the value of the type/column is, the higher the suitability score will be for that location.
-
-##### Influence High Calculation
-
-```
-( 
-    (Variable for location - Minimum variable for all locations) / 
-    (Maximum variable for all locations - Minimum variable for all locations) 
-) * weight
-```
-
-##### Influence High Calculation Example Python
-
-```python
-weight = 20
-location_variable = 3
-minimum_variable = 1
-maximum_variable = 5
-score = ( 
-    (location_variable - minimum_variable) /
-    (maximum_variable - minimum_variable)
-) * weight
-
-print(score)
-# score = 40
-```
-
-#### Low
-
-Low Influence means that the lower the value of the type/column is, the higher the suitability score will be for that location.
-
-##### Influence Low Calculation
-
-```
-( 
-    (Maximum variable for all locations - Variable for location) / 
-    (Maximum variable for all locations - Minimum variable for all locations) 
-) * weight
-```
-
-##### Influence Low Calculation Example Python
-
-```python
-weight = 20
-location_variable = 3
-minimum_variable = 1
-maximum_variable = 5
-score = ( 
-    (maximum_variable - location_variable) /
-    (maximum_variable - minimum_variable)
-) * weight
-
-print(score)
-# score = 20
-```
-
-#### Ideal
-
-Ideal Influence means that the closer the value of the type/column is to the ideal value, the higher the suitability score will be for that location.
-
-##### Influence Ideal Calculation
-
-```
-(
-    1 -
-    ( 
-        (Absolute (Ideal Value - Variable for location) ) / 
-        (Ideal Value  - Minimum variable for all locations OR Maximum variable for all locations - Variable for location) 
-        {Whichever is of a higher value}
-    )
-) * weight
-```
-
-##### Influence Ideal Calculation Example Python
-
-```python
-weight = 20
-location_variable = 3
-minimum_variable = 1
-maximum_variable = 5
-ideal_value = 4
-score = (
-    1 -
-    ( 
-        abs(ideal_value - location_variable) /
-        (ideal_value - minimum_variable)
-    )
-) * weight
-
-print(score)
-# score = 13.33
-```
-
-## Results
-
 ## Map Suitability
 
-The map suitability endpoints allows you to perform a suitability analyis on a set of geometries
+The map suitability endpoints allows you to perform a suitability analysis on a set of geometries
 already loaded into your database.
 
 ### Map Suitability Parameters
@@ -347,7 +214,7 @@ a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 
 
 ## Point Suitability
 
-The point suitability endpoints allows you to perform a suitability analyis on a set of known latitude and longitudes.
+The point suitability endpoints allows you to perform a suitability analysis on a set of known latitude and longitudes.
 
 ### Point Suitability Parameters
 * `points=[points]` - list of points to perform suitability analysis against.
@@ -475,7 +342,7 @@ a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 
 
 ## Polygon Suitability
 
-The polygon suitability endpoints allows you to perform a suitability analyis on a set of known geojson polygons.
+The polygon suitability endpoints allows you to perform a suitability analysis on a set of known geojson polygons.
 
 ### Polygon Suitability Parameters
 * `geojson_collection=geojson_collection` - a geojson collection of polygons.
@@ -726,3 +593,142 @@ a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 
 
 ## Polygon Suitability Map
 ![polygon_suitability](images/polygon_suitability.png)
+
+
+## Variables
+
+In order to determine the sutiability of each location, you will need to pass in a list of variables. For each variable, we will need a couple
+of details to help the api determine the suitability of the location.
+
+### Variable Parameters
+* `table=table` - name of the table.
+* `column=table-col` - name of a column in your table to perform suitability analysis with.
+* `type=type` - How to determine suitability score of variable. For more information
+about types go to the [type descriptions](#type-descriptions) area.
+* `influence=influence` - The type of influence to apply to the variable. Options `low, high, ideal`. For more information
+about influence type go to the [influence descriptions](#influence-descriptions) area.
+* `weight=weight` - how much weight to applt to the variable. All variables must total up to 100.
+
+### Type Descriptions
+
+#### Sum
+Determine the sum all the values of the choosen column and table that intersect the sutiability area.
+For polygons that do no intersect the entire sutiability area, the api performs a percentage based sum.
+For example if the sum of the column for a polygon is 100, but only 80% of the polygon is
+within the suitability area. The api will account for the 20% loss of area and set the sum to 80.
+![clip](images/clip.png)
+
+#### Avg
+Determine the average of all the values of the choosen column and table that intersect the sutiability area.
+For polygons that do no intersect the entire sutiability area, the api performs a percentage based average.
+For example if the average of the column for a polygon is 100, but only 80% of the polygon is
+within the suitability area. The api will account for the 20% loss of area and set the average to 80.
+![clip](images/clip.png)
+
+
+#### Count
+Determine the number of features within a table that intersect the sutiability area.
+
+### Influence Descriptions
+
+#### Influence High
+
+High Influence means that the higher the value of the type/column is, the higher the suitability score will be for that location.
+
+##### Influence High Calculation
+
+```
+( 
+    (Variable for location - Minimum variable for all locations) / 
+    (Maximum variable for all locations - Minimum variable for all locations) 
+) * weight
+```
+
+##### Influence High Calculation Example Python
+
+```python
+weight = 20
+location_variable = 3
+minimum_variable = 1
+maximum_variable = 5
+score = ( 
+    (location_variable - minimum_variable) /
+    (maximum_variable - minimum_variable)
+) * weight
+
+print(score)
+# score = 40
+```
+
+#### Low
+
+Low Influence means that the lower the value of the type/column is, the higher the suitability score will be for that location.
+
+##### Influence Low Calculation
+
+```
+( 
+    (Maximum variable for all locations - Variable for location) / 
+    (Maximum variable for all locations - Minimum variable for all locations) 
+) * weight
+```
+
+##### Influence Low Calculation Example Python
+
+```python
+weight = 20
+location_variable = 3
+minimum_variable = 1
+maximum_variable = 5
+score = ( 
+    (maximum_variable - location_variable) /
+    (maximum_variable - minimum_variable)
+) * weight
+
+print(score)
+# score = 20
+```
+
+#### Ideal
+
+Ideal Influence means that the closer the value of the type/column is to the ideal value, the higher the suitability score will be for that location.
+
+##### Influence Ideal Calculation
+
+```
+(
+    1 -
+    ( 
+        (Absolute (Ideal Value - Variable for location) ) / 
+        (Ideal Value  - Minimum variable for all locations OR Maximum variable for all locations - Variable for location) 
+        {Whichever is of a higher value}
+    )
+) * weight
+```
+
+##### Influence Ideal Calculation Example Python
+
+```python
+weight = 20
+location_variable = 3
+minimum_variable = 1
+maximum_variable = 5
+ideal_value = 4
+score = (
+    1 -
+    ( 
+        abs(ideal_value - location_variable) /
+        (ideal_value - minimum_variable)
+    )
+) * weight
+
+print(score)
+# score = 13.33
+```
+
+## Results
+
+Every api endpoint returns a geojson collection of polygons. For each variable, you will see a score and weighted score property. 
+The score is based off of the formulas above with no multiplication of the weight. The weighted scores are based off of the
+formulas noted above. There will also be a `final_score` property for each site. This rate's each site on a scale from 0 - 100. A site
+with a score of 100 means it is most suitable based off your variables you submitted to the api.
