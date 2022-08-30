@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "154ad230-3233-4ab0-8ed3-a5d2b43511fa",
+		"name": "FastGeosuitability",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Map Suitability",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"table\": \"counties\",\n    \"table_column\": \"fips\",\n    \"filter\": \"state_name = 'Illinois'\",\n    \"return_geometry\": true,\n    \"variables\":[\n        {\n            \"table\": \"walmart_locations\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 25\n        },\n        {\n            \"table\": \"chick_fil_a_locations\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 25\n        },\n        {\n            \"table\": \"starbucks\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 50\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/services/map_suitability/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"map_suitability",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Polygon Suitability",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"geojson_collection\": {\n        \"type\": \"FeatureCollection\",\n        \"features\": [\n            {\n                \"type\": \"Feature\",\n                \"properties\": {},\n                \"geometry\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                -88.11447143554688,\n                                41.91147545749747\n                            ],\n                            [\n                                -88.10623168945312,\n                                41.85421933478601\n                            ],\n                            [\n                                -88.06777954101562,\n                                41.80919639152055\n                            ],\n                            [\n                                -87.94830322265625,\n                                41.83682786072714\n                            ],\n                            [\n                                -87.93045043945311,\n                                41.89512180073503\n                            ],\n                            [\n                                -88.01696777343749,\n                                41.92578147109541\n                            ],\n                            [\n                                -88.11447143554688,\n                                41.91147545749747\n                            ]\n                        ]\n                    ]\n                }\n            },\n            {\n                \"type\": \"Feature\",\n                \"properties\": {},\n                \"geometry\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                -87.9345703125,\n                                42.06560675405716\n                            ],\n                            [\n                                -88.01422119140625,\n                                42.06356771883277\n                            ],\n                            [\n                                -87.92633056640625,\n                                42.02787400232195\n                            ],\n                            [\n                                -87.84530639648436,\n                                42.01563154037739\n                            ],\n                            [\n                                -87.82333374023438,\n                                42.02991418347818\n                            ],\n                            [\n                                -87.84393310546875,\n                                42.07478160216737\n                            ],\n                            [\n                                -87.9345703125,\n                                42.06560675405716\n                            ]\n                        ]\n                    ]\n                }\n            },\n            {\n                \"type\": \"Feature\",\n                \"properties\": {},\n                \"geometry\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                -87.96890258789062,\n                                41.597986086554684\n                            ],\n                            [\n                                -87.83432006835938,\n                                41.482862244540875\n                            ],\n                            [\n                                -87.77664184570312,\n                                41.45301999377133\n                            ],\n                            [\n                                -87.72445678710938,\n                                41.60209386160467\n                            ],\n                            [\n                                -87.72308349609375,\n                                41.740577910570785\n                            ],\n                            [\n                                -87.96890258789062,\n                                41.597986086554684\n                            ]\n                        ]\n                    ]\n                }\n            },\n            {\n                \"type\": \"Feature\",\n                \"properties\": {},\n                \"geometry\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                -87.70797729492188,\n                                41.83682786072714\n                            ],\n                            [\n                                -87.69699096679686,\n                                41.795888098191426\n                            ],\n                            [\n                                -87.62008666992188,\n                                41.790768787851285\n                            ],\n                            [\n                                -87.64205932617186,\n                                41.86342467181004\n                            ],\n                            [\n                                -87.6763916015625,\n                                41.88489863827785\n                            ],\n                            [\n                                -87.70797729492188,\n                                41.83682786072714\n                            ]\n                        ]\n                    ]\n                }\n            },\n            {\n                \"type\": \"Feature\",\n                \"properties\": {},\n                \"geometry\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                -87.58987426757812,\n                                41.57847058443442\n                            ],\n                            [\n                                -87.54730224609375,\n                                41.55278330492603\n                            ],\n                            [\n                                -87.51296997070312,\n                                41.569224340276165\n                            ],\n                            [\n                                -87.48275756835938,\n                                41.612362155265984\n                            ],\n                            [\n                                -87.52944946289062,\n                                41.63392025225949\n                            ],\n                            [\n                                -87.58438110351562,\n                                41.64726212881368\n                            ],\n                            [\n                                -87.58987426757812,\n                                41.57847058443442\n                            ]\n                        ]\n                    ]\n                }\n            }\n        ]\n    },\n    \"return_geometry\": false,\n    \"variables\": [\n        {\n            \"table\": \"walmart_locations\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 25\n        },\n        {\n            \"table\": \"chick_fil_a_locations\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 25\n        },\n        {\n            \"table\": \"starbucks\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 50\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/services/polygon_suitability/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"polygon_suitability",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Point Suitability",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"points\": [\n        {\n            \"latitude\": 40.45,\n            \"longitude\": -88.95\n        },\n        {\n            \"latitude\": 41.63212,\n            \"longitude\": -87.85594\n        }\n    ],\n    \"buffer_in_kilometers\": 50,\n    \"return_geometry\": false,\n    \"variables\":[\n        {\n            \"table\": \"walmart_locations\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 50\n        },\n        {\n            \"table\": \"chick_fil_a_locations\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 50\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/services/point_suitability/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"point_suitability",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Line Suitability",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"geojson_collection\": {\n        \"type\": \"FeatureCollection\",\n        \"features\": [\n            {\n                \"type\": \"Feature\",\n                \"properties\": {},\n                \"geometry\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                -88.11447143554688,\n                                41.91147545749747\n                            ],\n                            [\n                                -88.10623168945312,\n                                41.85421933478601\n                            ],\n                            [\n                                -88.06777954101562,\n                                41.80919639152055\n                            ],\n                            [\n                                -87.94830322265625,\n                                41.83682786072714\n                            ],\n                            [\n                                -87.93045043945311,\n                                41.89512180073503\n                            ],\n                            [\n                                -88.01696777343749,\n                                41.92578147109541\n                            ],\n                            [\n                                -88.11447143554688,\n                                41.91147545749747\n                            ]\n                        ]\n                    ]\n                }\n            },\n            {\n                \"type\": \"Feature\",\n                \"properties\": {},\n                \"geometry\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                -87.9345703125,\n                                42.06560675405716\n                            ],\n                            [\n                                -88.01422119140625,\n                                42.06356771883277\n                            ],\n                            [\n                                -87.92633056640625,\n                                42.02787400232195\n                            ],\n                            [\n                                -87.84530639648436,\n                                42.01563154037739\n                            ],\n                            [\n                                -87.82333374023438,\n                                42.02991418347818\n                            ],\n                            [\n                                -87.84393310546875,\n                                42.07478160216737\n                            ],\n                            [\n                                -87.9345703125,\n                                42.06560675405716\n                            ]\n                        ]\n                    ]\n                }\n            },\n            {\n                \"type\": \"Feature\",\n                \"properties\": {},\n                \"geometry\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                -87.96890258789062,\n                                41.597986086554684\n                            ],\n                            [\n                                -87.83432006835938,\n                                41.482862244540875\n                            ],\n                            [\n                                -87.77664184570312,\n                                41.45301999377133\n                            ],\n                            [\n                                -87.72445678710938,\n                                41.60209386160467\n                            ],\n                            [\n                                -87.72308349609375,\n                                41.740577910570785\n                            ],\n                            [\n                                -87.96890258789062,\n                                41.597986086554684\n                            ]\n                        ]\n                    ]\n                }\n            },\n            {\n                \"type\": \"Feature\",\n                \"properties\": {},\n                \"geometry\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                -87.70797729492188,\n                                41.83682786072714\n                            ],\n                            [\n                                -87.69699096679686,\n                                41.795888098191426\n                            ],\n                            [\n                                -87.62008666992188,\n                                41.790768787851285\n                            ],\n                            [\n                                -87.64205932617186,\n                                41.86342467181004\n                            ],\n                            [\n                                -87.6763916015625,\n                                41.88489863827785\n                            ],\n                            [\n                                -87.70797729492188,\n                                41.83682786072714\n                            ]\n                        ]\n                    ]\n                }\n            },\n            {\n                \"type\": \"Feature\",\n                \"properties\": {},\n                \"geometry\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [\n                            [\n                                -87.58987426757812,\n                                41.57847058443442\n                            ],\n                            [\n                                -87.54730224609375,\n                                41.55278330492603\n                            ],\n                            [\n                                -87.51296997070312,\n                                41.569224340276165\n                            ],\n                            [\n                                -87.48275756835938,\n                                41.612362155265984\n                            ],\n                            [\n                                -87.52944946289062,\n                                41.63392025225949\n                            ],\n                            [\n                                -87.58438110351562,\n                                41.64726212881368\n                            ],\n                            [\n                                -87.58987426757812,\n                                41.57847058443442\n                            ]\n                        ]\n                    ]\n                }\n            }\n        ]\n    },\n    \"return_geometry\": false,\n    \"variables\": [\n        {\n            \"table\": \"walmart_locations\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 25\n        },\n        {\n            \"table\": \"chick_fil_a_locations\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 25\n        },\n        {\n            \"table\": \"starbucks\",\n            \"column\": \"gid\",\n            \"type\": \"count\",\n            \"influence\": \"high\",\n            \"weight\": 50\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/services/line_suitability/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"line_suitability",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
