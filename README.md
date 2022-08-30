@@ -601,13 +601,13 @@ The line suitability endpoints allows you to perform a suitability analysis on a
 
 ### Line Suitability Parameters
 * `geojson_collection=geojson_collection` - a geojson collection of lines.
-* `buffer_in_kilometers=distance-in-kilometers` - distance in kilometers to search for data around each point.
+* `buffer_in_kilometers=distance-in-kilometers` - distance in kilometers to search for data around each line.
 * `variables=[{variables}]` - list of variables to perform site suitability against.
 * `return_geometry=bool` - boolean to determine if geometry is returned.
 
 ### Line Suitability Example
 
-In the example below, I am trying to rank a 20 kilometers off of I-55 in two different areas in Illinois based off of 3 variables like the example before. In this situation, I am trying to find which part of I-55 has the largest amount of Walmart's, Chick Fil A's, and Starbucks. Next, I added in my list of variables
+In the example below, I am trying to rank two different areas of I-55 in Illinois with a buffer of 20 kilometers based off of 3 variables like the example before. In this situation, I am trying to find which part of I-55 has the largest amount of Walmart's, Chick Fil A's, and Starbucks. Next, I added in my list of variables
 for Walmart's, Chick Fil A's, and Starbucks.
 
 ```json
