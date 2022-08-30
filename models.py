@@ -50,19 +50,37 @@ class Coordinates(NamedTuple):
     lon: LonField
     lat: LatField
     
-class Geometry(BaseModel):
+class PolygonGeometry(BaseModel):
     type: Literal['Polygon']
     coordinates: List[List[Coordinates]]
 
-class Geojson(BaseModel):
-    type: str="Feature"
-    geometry: Geometry   
+class LineGeometry(BaseModel):
+    type: Literal['LineString']
+    coordinates: List[Coordinates]
 
-class GeojsonCollection(BaseModel):
+class PolygonGeojson(BaseModel):
+    type: str="Feature"
+    geometry: PolygonGeometry   
+
+class LineGeojson(BaseModel):
+    type: str="Feature"
+    geometry: LineGeometry   
+
+class PolygonGeojsonCollection(BaseModel):
     type: str="FeatureCollection"
-    features: List[Geojson]
+    features: List[PolygonGeojson]
+
+class LineGeojsonCollection(BaseModel):
+    type: str="FeatureCollection"
+    features: List[LineGeojson]
 
 class PolygonSuitability(BaseModel):
-    geojson_collection: GeojsonCollection
+    geojson_collection: PolygonGeojsonCollection
+    variables: Optional[List[Variable]]=[]
+    return_geometry: bool=False
+
+class LineSuitability(BaseModel):
+    geojson_collection: LineGeojsonCollection
+    buffer_in_kilometers: float
     variables: Optional[List[Variable]]=[]
     return_geometry: bool=False

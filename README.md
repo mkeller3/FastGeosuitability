@@ -594,10 +594,208 @@ a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 
 ## Polygon Suitability Map
 ![polygon_suitability](images/polygon_suitability.png)
 
+## Line Suitability
+
+The line suitability endpoints allows you to perform a suitability analysis on a set of known geojson lines.
+
+### Line Suitability Parameters
+* `geojson_collection=geojson_collection` - a geojson collection of lines.
+* `buffer_in_kilometers=distance-in-kilometers` - distance in kilometers to search for data around each point.
+* `variables=[{variables}]` - list of variables to perform site suitability against.
+* `return_geometry=bool` - boolean to determine if geometry is returned.
+
+### Line Suitability Example
+
+In the example below, I am trying to rank a 20 kilometers off of I-55 in two different areas in Illinois based off of 3 variables like the example before. In this situation, I am trying to find which part of I-55 has the largest amount of Walmart's, Chick Fil A's, and Starbucks. Next, I added in my list of variables
+for Walmart's, Chick Fil A's, and Starbucks.
+
+```json
+"variables":[
+      {
+          "table": "walmart_locations",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 25
+      },
+      {
+          "table": "chick_fil_a_locations",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 25
+      },
+      {
+          "table": "starbucks",
+          "column": "gid",
+          "type": "count",
+          "influence": "high",
+          "weight": 50
+      }
+  ]
+```
+
+For each variable, you will need to define an object containing a certain list of keys and values.
+For more information about defining variables, go to the [variables](#variables) section which goes into full detail.
+
+### Line Suitability Results
+
+Your results will be returned as a geojson collection. For each line, you will see a new set of properties returned.
+For more information about results, go to the [results](#results) section which goes into full detail.
+
+For this example, I-55 in Chicago is a better location for having a large amount of Walmart's, Chick Fil A's, and Starbucks with a final score of 100.
+
+### Line Suitability Example Input
+```json
+{
+    "geojson_collection": {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                        [
+                            -89.6099853515625,
+                            39.93922484079194
+                        ],
+                        [
+                            -89.439697265625,
+                            40.12009038025332
+                        ],
+                        [
+                            -89.373779296875,
+                            40.199854889057676
+                        ],
+                        [
+                            -89.27490234375,
+                            40.18726672309203
+                        ],
+                        [
+                            -89.197998046875,
+                            40.29628651711716
+                        ],
+                        [
+                            -89.0716552734375,
+                            40.421860362045194
+                        ],
+                        [
+                            -89.0057373046875,
+                            40.47202439692057
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                        [
+                            -88.187255859375,
+                            41.50446357504803
+                        ],
+                        [
+                            -88.165283203125,
+                            41.63597302844412
+                        ],
+                        [
+                            -88.0224609375,
+                            41.73033005046653
+                        ],
+                        [
+                            -87.890625,
+                            41.77950486590359
+                        ],
+                        [
+                            -87.791748046875,
+                            41.80407814427234
+                        ]
+                    ]
+                }
+            }
+        ]
+    },
+    "buffer_in_kilometers": 20,
+    "return_geometry": true,
+    "variables": [
+        {
+            "table": "walmart_locations",
+            "column": "gid",
+            "type": "count",
+            "influence": "high",
+            "weight": 25
+        },
+        {
+            "table": "chick_fil_a_locations",
+            "column": "gid",
+            "type": "count",
+            "influence": "high",
+            "weight": 25
+        },
+        {
+            "table": "starbucks",
+            "column": "gid",
+            "type": "count",
+            "influence": "high",
+            "weight": 50
+        }
+    ]
+}
+```
+
+### Line Suitability Example Response
+```json
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "index": 1,
+                "walmart_locations_count_gid": 27,
+                "chick_fil_a_locations_count_gid": 10,
+                "starbucks_count_gid": 116,
+                "weighted_score_walmart_locations_count_gid": 25.0,
+                "score_walmart_locations_count_gid": 1.0,
+                "weighted_score_chick_fil_a_locations_count_gid": 25.0,
+                "score_chick_fil_a_locations_count_gid": 1.0,
+                "weighted_score_starbucks_count_gid": 50.0,
+                "score_starbucks_count_gid": 1.0,
+                "final_score": 100.0
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "index": 0,
+                "walmart_locations_count_gid": 5,
+                "chick_fil_a_locations_count_gid": 2,
+                "starbucks_count_gid": 6,
+                "weighted_score_walmart_locations_count_gid": 0,
+                "score_walmart_locations_count_gid": 0,
+                "weighted_score_chick_fil_a_locations_count_gid": 0,
+                "score_chick_fil_a_locations_count_gid": 0,
+                "weighted_score_starbucks_count_gid": 0,
+                "score_starbucks_count_gid": 0,
+                "final_score": 0
+            }
+        }
+    ]
+}
+```
+
+## Line Suitability Map
+![line_suitability](images/line_suitability.png)
 
 ## Variables
 
-In order to determine the sutiability of each location, you will need to pass in a list of variables. For each variable, we will need a couple
+In order to determine the suitability of each location, you will need to pass in a list of variables. For each variable, we will need a couple
 of details to help the api determine the suitability of the location.
 
 ### Variable Parameters
@@ -607,27 +805,27 @@ of details to help the api determine the suitability of the location.
 about types go to the [type descriptions](#type-descriptions) area.
 * `influence=influence` - The type of influence to apply to the variable. Options `low, high, ideal`. For more information
 about influence type go to the [influence descriptions](#influence-descriptions) area.
-* `weight=weight` - how much weight to applt to the variable. All variables must total up to 100.
+* `weight=weight` - how much weight to apply to the variable. All variables must total up to 100.
 
 ### Type Descriptions
 
 #### Sum
-Determine the sum all the values of the choosen column and table that intersect the sutiability area.
-For polygons that do no intersect the entire sutiability area, the api performs a percentage based sum.
+Determine the sum all the values of the chosen column and table that intersect the suitability area.
+For polygons that do no intersect the entire suitability area, the api performs a percentage based sum.
 For example if the sum of the column for a polygon is 100, but only 80% of the polygon is
 within the suitability area. The api will account for the 20% loss of area and set the sum to 80.
 ![clip](images/clip.png)
 
 #### Avg
-Determine the average of all the values of the choosen column and table that intersect the sutiability area.
-For polygons that do no intersect the entire sutiability area, the api performs a percentage based average.
+Determine the average of all the values of the chosen column and table that intersect the suitability area.
+For polygons that do no intersect the entire suitability area, the api performs a percentage based average.
 For example if the average of the column for a polygon is 100, but only 80% of the polygon is
 within the suitability area. The api will account for the 20% loss of area and set the average to 80.
 ![clip](images/clip.png)
 
 
 #### Count
-Determine the number of features within a table that intersect the sutiability area.
+Determine the number of features within a table that intersect the suitability area.
 
 ### Influence Descriptions
 
@@ -660,7 +858,7 @@ print(score)
 # score = 40
 ```
 
-#### Low
+#### Influence Low
 
 Low Influence means that the lower the value of the type/column is, the higher the suitability score will be for that location.
 
