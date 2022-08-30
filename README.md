@@ -42,6 +42,7 @@ Build Dockerfile into a docker image to deploy to the cloud.
 | `POST`  | `/api/v1/services/map_suitability/`                                             | [Map Suitability](#Map-Suitability)      |
 | `POST`  | `/api/v1/services/point_suitability/`                                           | [Point Suitability](#Point-Suitability)  |
 | `POST`  | `/api/v1/services/polygon_suitability/`                                         | [Polygon Suitability](#Polygon-Suitability)  |
+| `POST`  | `/api/v1/services/line_suitability/`                                            | [Line Suitability](#Line-Suitability)  |
 | `GET`  | `/api/v1/health_check`                                                           | Server health check: returns `200 OK`    |
 
 
